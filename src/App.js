@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { Header, UploadModal, DownloadTable } from './containers';
+import { Header, UploadModal, ManageTable, Deployer } from './containers';
 import { AccountProvider } from './context/AccountContext';
 
 const style = {
@@ -12,9 +12,10 @@ function App() {
     <AccountProvider>
       <div className={style.wrapper}>
         <Header />
+        <Deployer />
         <Routes>
           <Route path="/" element={<UploadModal />} />
-          <Route path="/download" element={<DownloadTable />} />
+          <Route path="/manage" element={<ManageTable />} />
         </Routes>
       </div>
     </AccountProvider>

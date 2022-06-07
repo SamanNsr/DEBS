@@ -13,6 +13,7 @@ import {
   AiOutlineRight,
   AiOutlineDoubleRight,
 } from 'react-icons/ai';
+import { FileIcon, defaultStyles } from 'react-file-icon';
 import { classNames } from '../../utils';
 import { BiSortAlt2, BiSortDown, BiSortUp } from 'react-icons/bi';
 import PageButton from '../Button/PageButton';
@@ -102,15 +103,23 @@ export function AvatarCell({ value, column, row }) {
   return (
     <div className="flex items-center">
       <div className="flex-shrink-0 h-10 w-10">
-        <img
-          className="h-10 w-10 rounded-full"
-          src={row.original[column.imgAccessor]}
-          alt=""
-        />
+        <div className="h-10 w-10 rounded-full">
+          <FileIcon
+            extension={row.original[column.fileExtension]}
+            {...defaultStyles[row.original[column.fileExtension]]}
+          />
+        </div>
       </div>
       <div className="ml-4">
         <div className="text-sm font-medium text-gray-200">{value}</div>
-        <div className="text-sm text-gray-500">{row.original[column.emailAccessor]}</div>
+        <a
+          href={row.original[column.downloadAccessor]}
+          rel="noopener noreferrer"
+          target="_blank"
+          className="text-sm text-gray-500"
+        >
+          Download
+        </a>
       </div>
     </div>
   );

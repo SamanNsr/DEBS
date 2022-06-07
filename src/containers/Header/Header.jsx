@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import { FaWallet } from 'react-icons/fa';
 
 import { images } from '../../constants';
 import { AccountContext } from '../../context/AccountContext';
+import { formatters } from '../../utils';
 
 const style = {
   wrapper: `p-4 w-screen flex justify-between items-center`,
@@ -20,7 +22,6 @@ const style = {
 };
 
 const Header = () => {
-  const [userName, setUserName] = useState();
   const { connectWallet, currentAccount } = useContext(AccountContext);
 
   return (
@@ -39,15 +40,15 @@ const Header = () => {
             Upload
           </NavLink>
           <NavLink
-            to="/download"
+            to="/manage"
             className={(navData) =>
               `${style.navItem} ${navData.isActive && style.activeNavItem}`
             }
           >
-            Download
+            Manage
           </NavLink>
         </div>
-        <div className="bottomNav fixed bottom-0 ">
+        <div className="bottomNav fixed bottom-6 ">
           <nav className="md:hidden flex-1 flex justify-center items-center flex bg-[#191B1F] rounded-3xl">
             <NavLink
               to="/"
@@ -58,12 +59,12 @@ const Header = () => {
               Upload
             </NavLink>
             <NavLink
-              to="/download"
+              to="/manage"
               className={(navData) =>
                 `${style.navItem} ${navData.isActive && style.activeNavItem}`
               }
             >
-              Download
+              Manage
             </NavLink>
           </nav>
         </div>
@@ -77,7 +78,12 @@ const Header = () => {
         </div>
         {currentAccount ? (
           <div className={`${style.button} ${style.buttonPadding}`}>
-            <div className={style.buttonTextContainer}>{userName}</div>
+            <div className={style.buttonTextContainer}>
+              <span className="pl-2">
+                <FaWallet />
+              </span>
+              <span className="p-2">{formatters.getEllipsisTxt(currentAccount, 4)}</span>
+            </div>
           </div>
         ) : (
           <div
