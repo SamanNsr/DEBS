@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
-import React, { useState, useEffect } from 'react';
-import { contracts } from '../constants';
+import React, { useState, useEffect, useRef } from 'react';
+import { contracts, networks } from '../constants';
 
 export const AccountContext = React.createContext();
 
@@ -28,7 +28,23 @@ export const AccountProvider = ({ children }) => {
   const [storageContractExist, setStorageContractExist] = useState(false);
 
   const { storageFactoryAddress, storageFactoryABI } = contracts;
-  const factoryContract = getEthereumContract(storageFactoryAddress, storageFactoryABI);
+  const factoryContract = useRef();
+
+  useEffect(() => {
+    const connectNetwork = async () => {
+      try {
+        await switchNetwork();
+        factoryContract.current = getEthereumContract(
+          storageFactoryAddress,
+          storageFactoryABI,
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    connectNetwork();
+  }, []);
 
   useEffect(() => {
     const connectUser = async () => {
@@ -39,9 +55,46 @@ export const AccountProvider = ({ children }) => {
         console.log(error);
       }
     };
-
     connectUser();
+  }, [factoryContract]);
+
+  useEffect(() => {
+    const networkChanged = async () => {
+      alert('Network changed');
+    };
+    if (eth) eth.on('chainChanged', networkChanged);
+
+    return () => {
+      if (eth) {
+        eth.removeListener('chainChanged', networkChanged);
+      }
+    };
   }, []);
+
+  const switchNetwork = async () => {
+    try {
+      await eth.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: networks.bscTestnet.chainId }],
+      });
+    } catch (switchError) {
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        try {
+          await eth.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                ...networks.bscTestnet,
+              },
+            ],
+          });
+        } catch (addError) {
+          alert("Couldn't add Binance Smart Chain Testnet to MetaMask. Please try again.");
+        }
+      }
+    }
+  };
 
   const connectWallet = async (metamask = eth) => {
     try {
@@ -59,6 +112,7 @@ export const AccountProvider = ({ children }) => {
     try {
       if (!metamask) return alert('Please install MetaMask');
       const accounts = await metamask.request({ method: 'eth_accounts' });
+      console.log(accounts);
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
         console.log('Wallet is already connected!');
@@ -73,7 +127,7 @@ export const AccountProvider = ({ children }) => {
 
   const computeStorageContract = async () => {
     try {
-      const addr = await factoryContract.computeAddress();
+      const addr = await factoryContract.current.computeAddress();
       const contract = getEthereumContract(addr, contracts.storageABI);
       setStorageContract(contract);
       console.log('contract', contract);
@@ -93,7 +147,7 @@ export const AccountProvider = ({ children }) => {
 
   const deployStorageContract = async () => {
     try {
-      await factoryContract.deployStorage();
+      await factoryContract.current.deployStorage();
       setStorageContractExist(true);
     } catch (error) {
       console.log(error);
@@ -106,7 +160,7 @@ export const AccountProvider = ({ children }) => {
       value={{
         currentAccount,
         connectWallet,
-        factoryContract,
+        factoryContract: factoryContract.current,
         storageContract,
         storageContractExist,
         deployStorageContract,

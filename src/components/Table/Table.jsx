@@ -127,7 +127,6 @@ export function AvatarCell({ value, column, row }) {
 
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
-  //   console.log('jh');
   const {
     getTableProps,
     getTableBodyProps,
@@ -153,16 +152,13 @@ function Table({ columns, data }) {
     {
       columns,
       data,
+      initialState: { pageSize: 5 },
     },
     useFilters, // useFilters!
     useGlobalFilter,
     useSortBy,
     usePagination, // new
   );
-
-  useEffect(() => {
-    setPageSize(5);
-  }, []);
 
   // Render the UI for your table
   return (

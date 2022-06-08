@@ -72,9 +72,9 @@ const Header = () => {
       <div className={style.buttonsContainer}>
         <div className={`${style.button} ${style.buttonPadding}`}>
           <div className={style.buttonIconContainer}>
-            <img src={images.eth} alt="eth logo" height={20} width={20} />
+            <img src={images.bnb} alt="bsc logo" height={20} width={20} />
           </div>
-          <p>Ethereum</p>
+          <p className="pr-2">BSC</p>
         </div>
         {currentAccount ? (
           <div className={`${style.button} ${style.buttonPadding}`}>

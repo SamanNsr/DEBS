@@ -50,11 +50,12 @@ contract Storage is Initializable, OwnableUpgradeable {
     // Make sure file size is more than 0
     require(_fileSize>0);
 
+    // Add File to the contract
+    files[fileCount] = File(_fileHash, _fileSize, _fileType, _fileName, _fileDescription, block.timestamp);
+    
     // Increment file id
     fileCount ++;
 
-    // Add File to the contract
-    files[fileCount] = File(_fileHash, _fileSize, _fileType, _fileName, _fileDescription, block.timestamp);
     // Trigger an event
     emit FileUploaded(_fileHash, _fileSize, _fileType, _fileName, _fileDescription, block.timestamp);
   }
