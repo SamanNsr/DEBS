@@ -3,8 +3,10 @@
 ![image](screenshots/logo.png)
 
 - [Debs Website](https://debs.vercel.app)
-  You must install metamask extension for your browser to use the website.
-  Currently, the website is based on binance smart chain testnet. you can earn free tbnb from [Binance testnet](https://testnet.binance.org/faucet-smart) to work with debs
+
+You must install metamask extension for your browser to use the website.
+
+Currently, the website is based on binance smart chain testnet. you can earn free tbnb from [Binance testnet](https://testnet.binance.org/faucet-smart) to work with debs
 
 Decentralized Box Storage to save files on the cloud. It is a decentralized version of [OneDrive](https://onedrive.live.com) and [Dropbox](https://www.dropbox.com). Its based on Blockchain and [IPFS](https://ipfs.io).
 
