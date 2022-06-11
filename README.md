@@ -1,6 +1,58 @@
-# Getting Started with Create React App
+# Debs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![image](screenshots/logo.png)
+
+- [Debs Website](https://debs.vercel.app)
+  You must install metamask extension for your browser to use the website.
+  Currently, the website is based on binance smart chain testnet. you can earn free tbnb from [Binance testnet](https://testnet.binance.org/faucet-smart) to work with debs
+
+Decentralized Box Storage to save files on the cloud. It is a decentralized version of [OneDrive](https://onedrive.live.com) and [Dropbox](https://www.dropbox.com). Its based on Blockchain and [IPFS](https://ipfs.io).
+
+![image](screenshots/banner.png)
+
+# Is IPFS a blockchain?
+
+IPFS is actually a network protocol that aims to replace the currently used protocol, HTTP. It’s based on content-based addressing rather than location-based addressing, which is leveraged by HTTP. IPFS is a decentralized network thought, as a result, many people confuse it with a blockchain.
+
+To give a high-level idea, this URL: https://www.github.com/Is-IPFS-a-blockchain has a particular location on the quora server, i.e., the route “/Is-IPFS-a-blockchain”. There are some systemic problems with this approach. HTTP links can get broken since the content can be moved to some other location or even websites can go down forever. In content-based addressing, we take some data, generate a hash of that data, and that hash will represent the data forever (and it can’t be changed). There is a gotcha here: the sharing of these websites will be “peer-to-peer”, and not controlled by a single entity. Every user can run their own IPFS node on their machine and would be able to access data (or some website) using the hash (called CID - content identifier).
+
+# Smart contracts architecture
+
+In blockchain development, mining sets of data into a blockchain is quite an expensive process because fees are charged for each new data mined into the next block. Deploying smart contracts on blockchain results in mining the contract’s data into the next block, which will cost some gas fees that are charged in Ether if deployed on the Ethereum blockchain.
+
+**The factory pattern**
+The factory design pattern is a well-known programming pattern. The concept is simple: instead of directly creating instances of objects, you have a single object (the factory) that does it for you.
+
+This is the same with Solidity because smart contracts are objects. In Solidity, a factory is a contract that will deploy multiple instances of other contracts.
+
+We sometimes need to create different types of objects, but we don’t know what kind of object we’ll instantiate until the code is executed at runtime. In such cases, the factory technique comes in handy.
+
+Generally, a basic factory contract should be able to deploy multiple instances of the same contract, store these created instances on the blockchain, and retrieve them when needed. You may want to add more functionality for managing deployed contracts like retrieving a specific instance of the contract, disabling an instance of the contract, and so on.
+
+![image](screenshots/factoryDesign.png)
+
+# Getting started
+
+- Clone the repository
+
+```
+git clone --depth=1 https://github.com/SamanNsr/express-api-boilerplate.git <project_name>
+```
+
+- Install dependencies
+
+```
+cd <project_name>
+npm install
+```
+
+- Build and run the project
+
+```
+npm run start
+```
+
+Finally, navigate to `http://localhost:3000/` and you should see the app running!
 
 ## Available Scripts
 
@@ -39,32 +91,12 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Contributing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you have any questions or comments, please open an issue or create a pull request.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
+The MIT License (MIT)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
